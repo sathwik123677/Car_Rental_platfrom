@@ -20,7 +20,7 @@ const Login = ({ setShowLogin }) => {
       <form
         onSubmit={onSubmitHandler}
         onClick={(e) => e.stopPropagation()}
-        className='flex flex-col gap-4 m-auto items-start p-8 py-12 w-80 sm:w-[352px] rounded-lg shadow-xl border border-gray-200 bg-white'
+        className='flex flex-col gap-4 m-auto items-start p-8 py-12 w-80 sm:w-88 rounded-lg shadow-xl border border-gray-200 bg-white'
       >
 
         <p className='text-2xl font-medium m-auto'>
