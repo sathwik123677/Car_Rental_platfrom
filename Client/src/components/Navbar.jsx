@@ -2,7 +2,7 @@ import { Link, useLocation ,useNavigate} from 'react-router-dom'
 import { assets, menuLinks } from '../assets/assets'
 import { useState } from 'react'
 
-const Navbar = (setShowLogin) => {
+const Navbar = ({setShowLogin}) => {
   const location = useLocation()
   const [open, setOpen] = useState(false)
   const navigate=useNavigate()
