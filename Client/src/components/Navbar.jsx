@@ -1,12 +1,27 @@
 import { Link, useLocation ,useNavigate} from 'react-router-dom'
 import { assets, menuLinks } from '../assets/assets'
 import { useState } from 'react'
-
-const Navbar = ({setShowLogin}) => {
+import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
+const Navbar = () => {
+  const {setShowLogin,user,logout,isOwner,axios,setIsOwner}=useAppContext()
   const location = useLocation()
   const [open, setOpen] = useState(false)
   const navigate=useNavigate()
+  const changeRole=async ()=>{
+    try{
+     const {data}= await axios.post('/api/owner/change-role');
+     if(data.success){
+      setIsOwner(true)
+      toast.success(data.message);
+     }else{
+      toast.error(data.message)
+     }
 
+    }catch(error){
+  toast.error(error.response?.data?.message || error.message);
+}
+  }
   return (
     <div className={`flex items-center justify-between px-6 md:px-16 lg:px-32 py-4 text-gray-600 border-b border-borderColor relative transition-all
   ${location.pathname === "/" ? "bg-light" : "bg-white"}`}>
@@ -34,12 +49,12 @@ const Navbar = ({setShowLogin}) => {
             <img src={assets.search_icon} alt="search" />
         </div>
         <div className="flex max-sm:flex-col items-start sm:items-center gap-6">
-            <button onClick={() => navigate('/owner')} className="cursor-pointer">
-            Dashboard
+            <button onClick={() => isOwner ? navigate('/owner') :changeRole()} className="cursor-pointer">
+            {isOwner ?'Dashboard':'Listcars'}
             </button>
-            <button onClick={() => setShowLogin(true)} className="cursor-pointer px-8 py-2
+            <button onClick={() =>{user?logout(): setShowLogin(true)}} className="cursor-pointer px-8 py-2
             bg-primary-dull transition-all  text-white rounded-lg ">
-            Login
+            {user?'Logout':'Login'}
             </button>
         </div>
       </div>
