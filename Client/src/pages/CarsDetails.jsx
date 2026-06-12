@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import  { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { assets} from '../assets/assets'
 import Loader from '../components/Loader'
@@ -8,7 +8,8 @@ const CarDetails = () => {
   const { id } = useParams()
   const {cars,axios,pickupDate,setPickupDate,returnDate,setReturnDate}=useAppContext()
   const navigate = useNavigate()
-  const [car, setCar] = useState(null)
+  // derive car directly from context to avoid synchronous setState in effect
+  const car = cars.find(car => car._id === id) || null
   const currency = import.meta.env.VITE_CURRENCY || '$'
   const handleSubmit = async(e) => {
     e.preventDefault()
@@ -27,8 +28,8 @@ const CarDetails = () => {
     }
   }
   useEffect(() => {
-    setCar(cars.find(car => car._id === id))
-  }, [cars,id])
+    // no-op effect kept only if side-effects related to car selection are needed later
+  }, [cars, id])
 
   return car ? (
     <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-16'>

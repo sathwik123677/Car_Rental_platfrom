@@ -18,19 +18,23 @@ const { cars, axios } = useAppContext();
 const [input, setInput] = useState("");
 const isSearchData = pickupLocation && pickupDate && returnDate;
 
-const [filteredCars, setFilteredCars] = useState([]);
-const applyFilter=async ()=>{
-  if(input===''){
-    setFilteredCars(cars);
-    return null;
-  }
-  const filtered=cars.slice().filter((car)=>{
-    return car.brand.toLowerCase().includes(input.toLowerCase())||
-    car.model.toLowerCase().includes(input.toLowerCase()) ||
-    car.trnasmission.toLowerCase().includes(input.toLowerCase())
-  })
-  setFilteredCars(filtered)
-}
+// when searching by date/location we store available cars from the API
+const [availableCars, setAvailableCars] = useState([]);
+
+// derive filtered cars from local cars + input when NOT using search params
+const localFiltered = (() => {
+  if (input === "") return cars;
+  return cars.slice().filter((car) => {
+    return (
+      car.brand.toLowerCase().includes(input.toLowerCase()) ||
+      car.model.toLowerCase().includes(input.toLowerCase()) ||
+      car.trnasmission.toLowerCase().includes(input.toLowerCase())
+    );
+  });
+})();
+
+// determine which cars to display based on search params
+const filteredCars = isSearchData ? availableCars : localFiltered;
 
 const searchCarAvailability = async () => {
   const { data } = await axios.post(
@@ -42,7 +46,7 @@ const searchCarAvailability = async () => {
     }
   );
   if(data.success){
-    setFilteredCars(data.availableCars)
+    setAvailableCars(data.availableCars)
     if(data.availableCars.length===0){
       toast('No cars available');
     
@@ -50,12 +54,15 @@ const searchCarAvailability = async () => {
     return null;
   }
 }; 
-useEffect(()=>{
-  isSearchData && searchCarAvailability()
-},[])
-useEffect(()=>{
-  cars.length>0 && !isSearchData && applyFilter()
-},[input,cars])
+useEffect(() => {
+  // fetch availability when search params present
+  if (!isSearchData) return;
+
+  (async () => {
+    await searchCarAvailability();
+  })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isSearchData]);
   return (
     <div>
       <div className='flex flex-col items-center py-20 bg-light max-md:px-4'>
