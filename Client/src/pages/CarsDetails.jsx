@@ -1,37 +1,80 @@
-import  { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { assets} from '../assets/assets'
+import { assets } from '../assets/assets'
 import Loader from '../components/Loader'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
+
 const CarDetails = () => {
   const { id } = useParams()
-  const {cars,axios,pickupDate,setPickupDate,returnDate,setReturnDate}=useAppContext()
+
+  const {
+    axios,
+    pickupDate,
+    setPickupDate,
+    returnDate,
+    setReturnDate
+  } = useAppContext()
+
   const navigate = useNavigate()
-  // derive car directly from context to avoid synchronous setState in effect
-  const car = cars.find(car => car._id === id) || null
+
+  const [car, setCar] = useState(null)
+  const [loading, setLoading] = useState(true)
+
   const currency = import.meta.env.VITE_CURRENCY || '$'
-  const handleSubmit = async(e) => {
-    e.preventDefault()
+
+  const fetchCar = async () => {
     try {
-     const {data}= await axios.post('/api/bookings/create',{
-        car :id,
+      const { data } = await axios.get(`/api/user/car/${id}`)
+
+      if (data.success) {
+        setCar(data.car)
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const { data } = await axios.post('/api/bookings/create', {
+        car: id,
         pickupDate,
         returnDate
       })
-      if(data.success){
-        toast.success(data.message);
-        navigate('/my=bookings')
-      }else toast.error(data.message);
+
+      if (data.success) {
+        toast.success(data.message)
+        navigate('/my-bookings')
+      } else {
+        toast.error(data.message)
+      }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     }
   }
-  useEffect(() => {
-    // no-op effect kept only if side-effects related to car selection are needed later
-  }, [cars, id])
 
-  return car ? (
+  useEffect(() => {
+    fetchCar()
+  }, [id])
+
+  if (loading) return <Loader />
+
+  if (!car) {
+    return (
+      <div className="text-center mt-20">
+        Car not found
+      </div>
+    )
+  }
+
+  return (
     <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-16'>
 
       <button
@@ -48,7 +91,6 @@ const CarDetails = () => {
 
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
 
-        {/* Left Side */}
         <div className='lg:col-span-2'>
 
           <img
@@ -104,7 +146,6 @@ const CarDetails = () => {
               ))}
             </div>
 
-            {/* Description */}
             <div>
               <h1 className='text-xl font-medium mb-3'>
                 Description
@@ -115,94 +156,63 @@ const CarDetails = () => {
               </p>
             </div>
 
-            {/* Features */}
-            <div>
-              <h1 className='text-xl font-medium mb-3'>
-                Features
-              </h1>
-
-              <ul className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
-                {[
-                  '360 Camera',
-                  'Bluetooth',
-                  'GPS',
-                  'Heated Seats',
-                  'Rear View Mirror',
-                ].map((item) => (
-                  <li
-                    key={item}
-                    className='flex items-center text-gray-500'
-                  >
-                    <img
-                      src={assets.check_icon}
-                      alt=''
-                      className='h-4 mr-2'
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
           </div>
         </div>
 
-        {/* Right Side Booking Form */}
-        <form onSubmit={handleSubmit}
-        className='shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500'>
+        <form
+          onSubmit={handleSubmit}
+          className='shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500'
+        >
 
-  <p className='flex items-center justify-between text-2xl text-gray-800 font-semibold'>
-    {currency}{car.pricePerDay}
-    <span className='text-base text-gray-400 font-normal'>
-      per day
-    </span>
-  </p>
+          <p className='flex items-center justify-between text-2xl text-gray-800 font-semibold'>
+            {currency}{car.pricePerDay}
+            <span className='text-base text-gray-400 font-normal'>
+              per day
+            </span>
+          </p>
 
-  <hr className='border-borderColor my-6' />
+          <hr className='border-borderColor my-6' />
 
-  <div className='flex flex-col gap-2'>
-    <label htmlFor='pickup-date'>
-      Pickup Date
-    </label>
+          <div className='flex flex-col gap-2'>
+            <label>Pickup Date</label>
 
-    <input value={pickupDate} onChange={(e)=>setPickupDate(e.target.value)}
-      type='date'
-      className='border border-borderColor px-3 py-2 rounded-lg'
-      required
-      id='pickup-date'
-      min={new Date().toISOString().split('T')[0]}
-    />
-  </div>
+            <input
+              value={pickupDate}
+              onChange={(e) => setPickupDate(e.target.value)}
+              type='date'
+              required
+              min={new Date().toISOString().split('T')[0]}
+              className='border border-borderColor px-3 py-2 rounded-lg'
+            />
+          </div>
 
-  <div className='flex flex-col gap-2'>
-    <label htmlFor='return-date'>
-      Return Date
-    </label>
+          <div className='flex flex-col gap-2'>
+            <label>Return Date</label>
 
-    <input value={returnDate} onChange={(e)=>setReturnDate(e.target.value)}
-      type='date'
-      className='border border-borderColor px-3 py-2 rounded-lg'
-      required
-      id='return-date'
-    />
-  </div>
+            <input
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
+              type='date'
+              required
+              className='border border-borderColor px-3 py-2 rounded-lg'
+            />
+          </div>
 
-  <button
-    className='w-full bg-primary hover:bg-primary-dull transition-all py-3 font-medium text-white rounded-xl cursor-pointer'
-  >
-    Book Now
-  </button>
+          <button
+            type='submit'
+            className='w-full bg-primary hover:bg-primary-dull transition-all py-3 font-medium text-white rounded-xl cursor-pointer'
+          >
+            Book Now
+          </button>
 
-  <p className='text-center text-sm'>
-    No credit card required to reserve
-  </p>
+          <p className='text-center text-sm'>
+            No credit card required to reserve
+          </p>
 
-</form>
+        </form>
 
       </div>
     </div>
-  ) : (
-    <Loader />
   )
 }
 
