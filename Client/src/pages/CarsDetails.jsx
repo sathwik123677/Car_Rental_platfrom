@@ -23,22 +23,6 @@ const CarDetails = () => {
 
   const currency = import.meta.env.VITE_CURRENCY || '$'
 
-  const fetchCar = async () => {
-    try {
-      const { data } = await axios.get(`/api/user/car/${id}`)
-
-      if (data.success) {
-        setCar(data.car)
-      } else {
-        toast.error(data.message)
-      }
-    } catch (error) {
-      toast.error(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -61,8 +45,24 @@ const CarDetails = () => {
   }
 
   useEffect(() => {
+    const fetchCar = async () => {
+      try {
+        const { data } = await axios.get(`/api/user/car/${id}`)
+
+        if (data.success) {
+          setCar(data.car)
+        } else {
+          toast.error(data.message)
+        }
+      } catch (error) {
+        toast.error(error.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+
     fetchCar()
-  }, [id])
+  }, [id, axios])
 
   if (loading) return <Loader />
 
