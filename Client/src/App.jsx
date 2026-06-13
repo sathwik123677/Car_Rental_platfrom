@@ -5,11 +5,11 @@ import CarsDetails from "./pages/CarsDetails";
 import Cars from "./pages/Cars";
 import MyBookings from "./pages/MyBookings";
 import Footer from "./components/Footer"
-import Layout from "./pages/Owner/Layout";
-import AddCar from "./pages/Owner/AddCar";
-import Dashboard from "./pages/Owner/Dashboard";
-import ManageCars from "./pages/Owner/ManageCars";
-import ManageBookings from "./pages/Owner/ManageBookings";
+import Layout from "./pages/owner/Layout";
+import AddCar from "./pages/owner/AddCar";
+import Dashboard from "./pages/owner/Dashboard";
+import ManageCars from "./pages/owner/ManageCars";
+import ManageBookings from "./pages/owner/ManageBookings";
 import Login from "./components/Login";
 import {Toaster} from 'react-hot-toast';
 import { useAppContext } from "./context/AppContext";
