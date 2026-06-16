@@ -1,6 +1,6 @@
 import  { useState } from 'react'
 import Title from '../../components/owner/Title'
-import { assets } from '../../assets/assets'
+import { assets ,cityList} from '../../assets/assets'
 import toast from 'react-hot-toast'
 import {useAppContext} from '../../context/AppContext'
 const AddCar = () => {
@@ -230,23 +230,25 @@ const AddCar = () => {
         {/* Car Location */}
         <div className='flex flex-col w-full'>
 
-          <label>Location</label>
+  <label>Location</label>
 
-          <select
-            value={car.location}
-            onChange={(e) =>
-              setCar({ ...car, location: e.target.value })
-            }
-            className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none'
-          >
-            <option value="">Select a location</option>
-            <option value="New York">New York</option>
-            <option value="Los Angeles">Los Angeles</option>
-            <option value="Houston">Houston</option>
-            <option value="Chicago">Chicago</option>
-          </select>
+  <select
+    value={car.location}
+    onChange={(e) =>
+      setCar({ ...car, location: e.target.value })
+    }
+    className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none'
+  >
+    <option value="">Select a location</option>
 
-        </div>
+    {cityList.map((city, index) => (
+      <option key={index} value={city}>
+        {city}
+      </option>
+    ))}
+  </select>
+
+</div>
 
         {/* Car Description */}
         <div className='flex flex-col w-full'>
