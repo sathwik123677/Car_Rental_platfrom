@@ -4,131 +4,50 @@ A modern full-stack Car Rental Platform built using the MERN Stack (MongoDB, Exp
 
 ---
 
-## 🌐 Live Demo
-
-**Frontend:** https://your-frontend-link.vercel.app
-
-**Backend API:** https://your-backend-link.onrender.com
-
----
-
 ## 📸 Screenshots
 
-### Home Page
-
-(Add Screenshot Here)
-
-### Cars Listing Page
-
-(Add Screenshot Here)
-
-### Car Details & Booking
-
-(Add Screenshot Here)
-
-### Owner Dashboard
-
-(Add Screenshot Here)
-
-### My Bookings
-
-(Add Screenshot Here)
-
+### 🏠 Home Page
+![Home Page](screenshots/home-page.png)
+Browse featured vehicles, search by location, and start your booking journey.
 ---
-
-# ✨ Features
-
-## 👤 User Features
-
-### Authentication & Authorization
-
-* JWT-based Authentication
-* Secure Login & Registration
-* Protected Routes
-* Persistent User Sessions
-
-### Car Browsing
-
-* View all available cars
-* Search cars by location
-* Filter available vehicles
-* View detailed car information
-
-### Booking System
-
-* Select pickup and return dates
-* Real-time availability checking
-* Instant booking creation
-* View booking history
-* Track booking status
-
-### User Profile
-
-* Update profile image
-* View account information
-* Manage bookings
-
+### 🚘 Cars Listing Page
+![Cars Listing](screenshots/cars-listing.png)
+View all available cars with filtering and search functionality.
 ---
-
-## 🚘 Owner Features
-
-### Owner Registration
-
-* Upgrade user account to Owner
-* Owner-specific dashboard access
-
-### Car Management
-
-* Add new cars
-* Upload car images using ImageKit
-* Manage vehicle details
-* Set daily rental pricing
-* Control vehicle availability
-
-### Booking Management
-
-* View all bookings
-* Confirm bookings
-* Cancel bookings
-* Track booking status
-
-### Analytics Dashboard
-
-* Total Cars
-* Total Bookings
-* Pending Bookings
-* Confirmed Bookings
-* Monthly Revenue
-* Recent Booking Activity
-
+### 📋 Car Details & Booking
+![Car Details](screenshots/car-details.png)
+See complete vehicle information, select pickup and return dates, and create bookings.
 ---
-
-## 📊 Dashboard Analytics
-
-Owners can monitor:
-
-* Total Cars Listed
-* Total Bookings
-* Pending Reservations
-* Confirmed Reservations
-* Recent Bookings
-* Monthly Revenue Statistics
-
+### 📅 My Bookings
+![My Bookings](screenshots/my-bookings.png)
+Track all your bookings and monitor their current status.
 ---
-
+### 👤 Owner Dashboard
+![Owner Dashboard](screenshots/owner-dashboard.png)
+Monitor platform performance including total cars, bookings, revenue, and recent activities.
+---
+### 🚗 Manage Cars
+![Manage Cars](screenshots/manage-cars.png)
+Owners can view, manage, and update all listed vehicles.
+---
+### ➕ Add New Car
+![Add Car](screenshots/add-car.png)
+List new vehicles with images, specifications, pricing, and location details.
+---
+### 📊 Booking Management
+![Booking Management](screenshots/booking-management.png)
+Owners can confirm, cancel, and manage incoming bookings.
+---
+---
 # 🛠️ Tech Stack
-
 ## Frontend
-
 * React.js
 * React Router DOM
 * Axios
 * Tailwind CSS
 * React Hot Toast
 * Context API
-
 ## Backend
-
 * Node.js
 * Express.js
 * MongoDB
@@ -136,55 +55,36 @@ Owners can monitor:
 * JWT Authentication
 * Multer
 * ImageKit
-
 ## Database
-
 * MongoDB Atlas
-
 ## Media Storage
-
 * ImageKit CDN
-
 ---
 
-# 📁 Project Structure
+## 📁 Project Structure
 
-Car_Rental_Platform
-
-├── Client
-
-│ ├── src
-
-│ ├── components
-
-│ ├── pages
-
-│ ├── context
-
-│ ├── assets
-
-│ └── App.jsx
-
+```text
+Car_Rental_Platform/
 │
-
-├── Server
-
-│ ├── controllers
-
-│ ├── models
-
-│ ├── routes
-
-│ ├── middleware
-
-│ ├── configs
-
-│ └── server.js
-
+├── Client/
+│   ├── public/
+│   └── src/
+│       ├── assets/
+│       ├── components/
+│       ├── context/
+│       └── pages/
 │
-
+├── Server/
+│   ├── configs/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   └── routes/
+│
+├── screenshots/
+│
 └── README.md
-
+```
 ---
 
 # 🔐 Security Features
@@ -219,72 +119,48 @@ Create a `.env` file:
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
-
 JWT_SECRET=your_jwt_secret
-
 IMAGEKIT_PUBLIC_KEY=your_public_key
-
 IMAGEKIT_PRIVATE_KEY=your_private_key
-
 IMAGEKIT_URL_ENDPOINT=your_url_endpoint
-
 PORT=5000
 ```
-
 Run backend:
-
 ```bash
 npm run server
 ```
-
 ---
-
 ## Frontend Setup
-
 ```bash
 cd Client
-
 npm install
 ```
-
 Create a `.env` file:
-
 ```env
 VITE_BASE_URL=http://localhost:5000
-
 VITE_CURRENCY=$
 ```
-
 Run frontend:
-
 ```bash
 npm run dev
 ```
-
 ---
-
 # 📌 API Endpoints
-
 ## User
-
 ```http
 POST /api/user/register
 POST /api/user/login
 GET  /api/user/data
 GET  /api/user/cars
 ```
-
 ## Owner
-
 ```http
 POST /api/owner/change-role
 POST /api/owner/add-car
 GET  /api/owner/dashboard
 GET  /api/owner/cars
 ```
-
 ## Bookings
-
 ```http
 POST /api/bookings/check-availability
 POST /api/bookings/create
@@ -292,31 +168,17 @@ GET  /api/bookings/user
 GET  /api/bookings/owner
 POST /api/bookings/change-status
 ```
-
 ---
-
 # 🎯 Future Enhancements
-
 * Online Payment Integration (Stripe/Razorpay)
 * Google Maps Location Search
 * Car Reviews & Ratings
 * Email Notifications
-* Advanced Search Filters
-* Admin Panel
-* Wishlist Functionality
-* Booking Cancellation Policy
-
 ---
-
 # 👨‍💻 Developer
-
 **Sathwik**
-
 GitHub:
 https://github.com/sathwik123677
-
 ---
-
 # ⭐ Support
-
 If you found this project useful, please consider giving it a ⭐ on GitHub.
