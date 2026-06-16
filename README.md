@@ -3,41 +3,6 @@
 A modern full-stack Car Rental Platform built using the MERN Stack (MongoDB, Express.js, React.js, Node.js). The application allows users to browse available vehicles, check availability, book cars online, and enables vehicle owners to manage listings, bookings, and revenue through a dedicated dashboard.
 
 ---
-
-## 📸 Screenshots
-
-### 🏠 Home Page
-![Home Page](screenshots/home-page.png)
-Browse featured vehicles, search by location, and start your booking journey.
----
-### 🚘 Cars Listing Page
-![Cars Listing](screenshots/cars-listing.png)
-View all available cars with filtering and search functionality.
----
-### 📋 Car Details & Booking
-![Car Details](screenshots/car-details.png)
-See complete vehicle information, select pickup and return dates, and create bookings.
----
-### 📅 My Bookings
-![My Bookings](screenshots/my-bookings.png)
-Track all your bookings and monitor their current status.
----
-### 👤 Owner Dashboard
-![Owner Dashboard](screenshots/owner-dashboard.png)
-Monitor platform performance including total cars, bookings, revenue, and recent activities.
----
-### 🚗 Manage Cars
-![Manage Cars](screenshots/manage-cars.png)
-Owners can view, manage, and update all listed vehicles.
----
-### ➕ Add New Car
-![Add Car](screenshots/add-car.png)
-List new vehicles with images, specifications, pricing, and location details.
----
-### 📊 Booking Management
-![Booking Management](screenshots/booking-management.png)
-Owners can confirm, cancel, and manage incoming bookings.
----
 ---
 # 🛠️ Tech Stack
 ## Frontend
